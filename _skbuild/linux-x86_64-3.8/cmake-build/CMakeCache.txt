@@ -156,8 +156,8 @@ CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
 
-//No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:FILEPATH=/home/danrui/.pyenv/versions/3.8.12/lib/python3.8/site-packages/ninja/data/bin/ninja
+//Program used to build from build.ninja files.
+CMAKE_MAKE_PROGRAM:FILEPATH=/home/danrui/.pyenv/versions/3.8.12/bin/ninja
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -180,7 +180,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //No help, variable specified on the command line.
-CMAKE_MODULE_PATH:PATH=/home/danrui/.pyenv/versions/3.8.12/lib/python3.8/site-packages/skbuild/resources/cmake
+CMAKE_MODULE_PATH:PATH=/home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/lib/python3.8/site-packages/skbuild/resources/cmake
 
 //Path to a program.
 CMAKE_NM:FILEPATH=/usr/bin/nm
@@ -289,7 +289,7 @@ Levenshtein_IS_TOP_LEVEL:STATIC=OFF
 Levenshtein_SOURCE_DIR:STATIC=/home/danrui/Dataprep/pre_compile/dataprep/extern/Levenshtein
 
 //No help, variable specified on the command line.
-PYTHON_EXECUTABLE:FILEPATH=/home/danrui/.pyenv/versions/3.8.12/bin/python
+PYTHON_EXECUTABLE:FILEPATH=/home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/bin/python
 
 //No help, variable specified on the command line.
 PYTHON_INCLUDE_DIR:PATH=/home/danrui/.pyenv/versions/3.8.12/include/python3.8
@@ -432,6 +432,8 @@ CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
 CMAKE_INSTALL_SYSCONFDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
 CMAKE_LINKER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_MAKE_PROGRAM
+CMAKE_MAKE_PROGRAM-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS
 CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG
@@ -445,7 +447,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -501,7 +503,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_Cython:INTERNAL=[/home/danrui/.pyenv/versions/3.8.1
 //Details about finding Python
 FIND_PACKAGE_MESSAGE_DETAILS_Python:INTERNAL=[/home/danrui/.pyenv/versions/3.8.12/bin/python3.8][/home/danrui/.pyenv/versions/3.8.12/include/python3.8][/home/danrui/.pyenv/versions/3.8.12/lib/libpython3.8.a][cfound components: Interpreter Development Development.Module Development.Embed ][v3.8.12()]
 //Details about finding PythonInterp
-FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/danrui/.pyenv/versions/3.8.12/bin/python][v3.8.12()]
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/bin/python][v3.8.12()]
 //Details about finding PythonLibs
 FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/home/danrui/.pyenv/versions/3.8.12/lib/libpython3.8.a][/home/danrui/.pyenv/versions/3.8.12/include/python3.8][v3.8.12()]
 //ADVANCED property for variable: HAS_DYNAMIC_LOOKUP_MODULE_SHARED

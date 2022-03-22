@@ -18,6 +18,19 @@ readme = "README.md" # Markdown files are supported
 homepage = "https://github.com/sfu-db/dataprep"
 repository = "https://github.com/sfu-db/dataprep"
 
+include = [
+    # Source files for C extensions must be included in the source distribution.
+    { path = "CMakeLists.txt", format = "sdist" },
+    { path = "extern/Levenshtein/**/*.cxx", format = "sdist" },
+    # C extensions must be included in the wheel distribution.
+    { path = "extern/Levenshtein/**/*.so", format = "wheel" },
+]
+
+exclude = [
+    "extern/Levenshtein/**/*.cxx",
+    "extern/Levenshtein/**/*.so",
+]
+
 keywords = ["dataprep", "eda", "connector", "data science", "exploratory data analysis", "data exploration"]
 
 classifiers = [
@@ -35,7 +48,7 @@ classifiers = [
 
 [tool.poetry.build]
 generate-setup-file = false
-script = "setup.py"
+script = "build.py"
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
@@ -106,4 +119,4 @@ target-version = ['py37']
 
 [build-system]
 build-backend = "poetry.masonry.api"
-requires = ["poetry>=1"]
+requires = ["poetry>=1", "scikit-build", "cmake", "ninja"]
