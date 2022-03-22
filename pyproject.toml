@@ -33,6 +33,10 @@ classifiers = [
   "Framework :: IPython",
 ]
 
+[tool.poetry.build]
+generate-setup-file = false
+script = "setup.py"
+
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
 
@@ -62,6 +66,7 @@ python-stdnum = "^1.16"
 regex = "^2021.8.3"
 varname = "^0.8.1"
 python-Levenshtein = "^0.12.2"
+scikit-build = "^0.13.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.8b1"
