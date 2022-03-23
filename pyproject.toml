@@ -21,13 +21,13 @@ repository = "https://github.com/sfu-db/dataprep"
 include = [
     # Source files for C extensions must be included in the source distribution.
     { path = "CMakeLists.txt", format = "sdist" },
-    { path = "extern/Levenshtein/**/*.cxx", format = "sdist" },
+    { path = "extern/Levenshtein/", format = "sdist" },
     # C extensions must be included in the wheel distribution.
     { path = "extern/Levenshtein/**/*.so", format = "wheel" },
 ]
 
 exclude = [
-    "extern/Levenshtein/**/*.cxx",
+    "extern/Levenshtein/",
     "extern/Levenshtein/**/*.so",
 ]
 
@@ -79,6 +79,7 @@ python-stdnum = "^1.16"
 regex = "^2021.8.3"
 varname = "^0.8.1"
 scikit-build = "^0.13.1"
+Cython = "^0.29.28"
 
 [tool.poetry.dev-dependencies]
 black = "^21.8b1"
@@ -118,4 +119,4 @@ target-version = ['py37']
 
 [build-system]
 build-backend = "poetry.masonry.api"
-requires = ["poetry>=1", "scikit-build", "cmake", "ninja"]
+requires = ["poetry>=1", "scikit-build", "cmake", "cython", "ninja"]

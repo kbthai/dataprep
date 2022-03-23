@@ -414,7 +414,7 @@ build extern/Levenshtein/src/cython/install/strip: phony extern/Levenshtein/src/
 # Custom command for extern/Levenshtein/src/cython/cpp_levenshtein.cxx
 
 build extern/Levenshtein/src/cython/cpp_levenshtein.cxx | ${cmake_ninja_workdir}extern/Levenshtein/src/cython/cpp_levenshtein.cxx: CUSTOM_COMMAND ../../../extern/Levenshtein/src/cython/cpp_levenshtein.pyx
-  COMMAND = cd /home/danrui/Dataprep/pre_compile/dataprep/_skbuild/linux-x86_64-3.8/cmake-build/extern/Levenshtein/src/cython && /home/danrui/.pyenv/versions/3.8.12/bin/cython --cplus -3 /home/danrui/Dataprep/pre_compile/dataprep/extern/Levenshtein/src/cython/cpp_levenshtein.pyx --output-file /home/danrui/Dataprep/pre_compile/dataprep/_skbuild/linux-x86_64-3.8/cmake-build/extern/Levenshtein/src/cython/cpp_levenshtein.cxx
+  COMMAND = cd /home/danrui/Dataprep/pre_compile/dataprep/_skbuild/linux-x86_64-3.8/cmake-build/extern/Levenshtein/src/cython && /home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/bin/cython --cplus -3 /home/danrui/Dataprep/pre_compile/dataprep/extern/Levenshtein/src/cython/cpp_levenshtein.pyx --output-file /home/danrui/Dataprep/pre_compile/dataprep/_skbuild/linux-x86_64-3.8/cmake-build/extern/Levenshtein/src/cython/cpp_levenshtein.cxx
   DESC = Generating CXX source extern/Levenshtein/src/cython/cpp_levenshtein.cxx
   restat = 1
 

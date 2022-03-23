@@ -266,7 +266,7 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 CYTHON_ANNOTATE:BOOL=OFF
 
 //path to the cython executable
-CYTHON_EXECUTABLE:FILEPATH=/home/danrui/.pyenv/versions/3.8.12/bin/cython
+CYTHON_EXECUTABLE:FILEPATH=/home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/bin/cython
 
 //Extra flags to the cython compiler.
 CYTHON_FLAGS:STRING=
@@ -499,7 +499,7 @@ CYTHON_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DYNAMIC_LOOKUP_FLAGS_MODULE_SHARED
 DYNAMIC_LOOKUP_FLAGS_MODULE_SHARED-ADVANCED:INTERNAL=1
 //Details about finding Cython
-FIND_PACKAGE_MESSAGE_DETAILS_Cython:INTERNAL=[/home/danrui/.pyenv/versions/3.8.12/bin/cython][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_Cython:INTERNAL=[/home/danrui/.cache/pypoetry/virtualenvs/dataprep-eNCLTfUX-py3.8/bin/cython][v()]
 //Details about finding Python
 FIND_PACKAGE_MESSAGE_DETAILS_Python:INTERNAL=[/home/danrui/.pyenv/versions/3.8.12/bin/python3.8][/home/danrui/.pyenv/versions/3.8.12/include/python3.8][/home/danrui/.pyenv/versions/3.8.12/lib/libpython3.8.a][cfound components: Interpreter Development Development.Module Development.Embed ][v3.8.12()]
 //Details about finding PythonInterp
