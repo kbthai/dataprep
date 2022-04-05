@@ -8,6 +8,12 @@ from typing import Any, Dict
 import skbuild
 import skbuild.constants
 
+import setuptools
+import glob
+import sys
+from setuptools import Extension
+from distutils.command.build_ext import build_ext
+
 __all__ = ("build",)
 
 
@@ -24,6 +30,74 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
 
     # Copy built C-extensions back to the project.
     copy_files(src_dir, dest_dir, "**/*.so")
+
+    """Build python-crfsuite extension"""
+    src_dir = Path("extern/python-crfsuite")
+    build_src_dir = Path(glob.glob("build/**/pycrfsuite")[0])
+    dest_dir = Path("extern/python-crfsuite")
+    print(src_dir)
+    print(build_src_dir)
+    print(dest_dir) 
+
+    sources = [f'{src_dir}/pycrfsuite/_pycrfsuite.cpp', f'{src_dir}/pycrfsuite/trainer_wrapper.cpp']
+
+    # crfsuite
+    sources += glob.glob(f'{src_dir}/crfsuite/lib/crf/src/*.c')
+    sources += glob.glob(f'{src_dir}/crfsuite/swig/*.cpp')
+
+    sources += [f'{src_dir}/crfsuite/lib/cqdb/src/cqdb.c']
+    sources += [f'{src_dir}/crfsuite/lib/cqdb/src/lookup3.c']
+
+    # lbfgs
+    sources += glob.glob(f'{src_dir}/liblbfgs/lib/*.c')
+
+    print(sources)
+
+    includes = [
+        f'{src_dir}/crfsuite/include/',
+        f'{src_dir}/crfsuite/lib/cqdb/include',
+        f'{src_dir}/liblbfgs/include',
+        f'{src_dir}/pycrfsuite',
+    ]
+
+    print(includes)
+
+    class build_ext_check_gcc(build_ext):
+        def build_extensions(self):
+            c = self.compiler
+
+            _compile = c._compile
+
+            def c_compile(obj, src, ext, cc_args, extra_postargs, pp_opts):
+                cc_args = cc_args + ['-std=c99'] if src.endswith('.c') else cc_args
+                return _compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
+
+            if c.compiler_type == 'unix' and 'gcc' in c.compiler:
+                c._compile = c_compile
+
+            elif self.compiler.compiler_type == "msvc":
+                if sys.version_info[:2] < (3, 5):
+                    c.include_dirs.extend(['crfsuite/win32'])
+
+            build_ext.build_extensions(self)
+
+
+    ext_modules = [Extension('pycrfsuite._pycrfsuite',
+        include_dirs=includes,
+        language='c++',
+        sources=sorted(sources)
+    )]
+    setup_kwargs.update({
+            'ext_modules': ext_modules,
+            'cmdclass': {'build_ext': build_ext_check_gcc}
+        })
+    setuptools.setup(**setup_kwargs, script_args=["build_ext"])
+    
+    # Delete C-extensions copied in previous runs, just in case.
+    remove_files(dest_dir, "**/*.so")
+
+    # Copy built C-extensions back to the project.
+    copy_files(build_src_dir, dest_dir, "**/*.so")
 
 
 def remove_files(target_dir: Path, pattern: str) -> None:

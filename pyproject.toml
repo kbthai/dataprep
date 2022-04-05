@@ -74,7 +74,6 @@ tqdm = "^4.48"
 flask = "^2"
 flask_cors = "^3.0.10"
 metaphone = "^0.6"
-python-crfsuite = "^0.9.7"
 python-stdnum = "^1.16"
 regex = "^2021.8.3"
 varname = "^0.8.1"
@@ -119,4 +118,4 @@ target-version = ['py37']
 
 [build-system]
 build-backend = "poetry.masonry.api"
-requires = ["poetry>=1", "scikit-build", "cmake", "cython", "ninja"]
+requires = ["poetry>=1", "scikit-build", "cmake", "cython", "ninja", "setuptools"]
