@@ -9,7 +9,7 @@ maintainers = [
   "Song Bian <biansonghz@gmail.com>",
 ]
 name = "dataprep"
-version = "0.4.2"
+version = "0.4.3-alpha.1"
 
 license = "MIT"
 
@@ -79,6 +79,9 @@ regex = "^2021.8.3"
 varname = "^0.8.1"
 scikit-build = "^0.13.1"
 Cython = "^0.29.28"
+python-Levenshtein = "^0.12.2"
+python-crfsuite = "^0.9.7"
+python-stdnum = "^1.16"
 
 [tool.poetry.dev-dependencies]
 black = "^21.8b1"
