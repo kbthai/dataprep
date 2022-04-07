@@ -60,7 +60,7 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     ]
     ext_modules = [
         Extension(
-            "pycrfsuite._pycrfsuite", include_dirs=includes, language="c++", sources=sorted(sources)
+            name = "pycrfsuite", include_dirs=includes, language="c++", sources=sorted(sources)
         )
     ]
     setup_kwargs.update(
