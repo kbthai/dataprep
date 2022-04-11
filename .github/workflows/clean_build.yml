@@ -76,12 +76,10 @@ jobs:
       - name: Build wheels
         run: poetry build
       
-       - name: Build sdist
+       - name: Install C extension
         run: |
-          cd ./dist/
-          pip3 install dist/dataprep-*.whl
-        # pip3 uninstall dataprep --yes
-
+          pip install dist/dataprep-*.whl
+          
       - name: Parse version from pyproject.toml
         run: echo "DATAPREP_VERSION=`toml get --toml-path pyproject.toml tool.poetry.version`" >> $GITHUB_ENV
 
