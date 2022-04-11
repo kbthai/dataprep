@@ -1,0 +1,123 @@
+name: Clean Build
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+  pull_request:
+    branches:
+      - develop
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+jobs:
+  docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          curl -L https://github.com/jgm/pandoc/releases/download/2.11.2/pandoc-2.11.2-1-amd64.deb -o /tmp/pandoc.deb && sudo dpkg -i /tmp/pandoc.deb
+
+      - name: Cache venv
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-build-${{ matrix.python }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          poetry install
+
+      - name: Build docs
+        run: poetry run sphinx-build -M html docs/source docs/build
+
+      - name: Archive docs
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: docs/build/html
+
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+    needs: docs-build
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.7", "3.8", "3.9", "3.10"]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+          submodules: true
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Cache venv
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-build-${{ matrix.python }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          echo "Cache Version ${{ secrets.CACHE_VERSION }}"
+          pip install poetry toml-cli
+          poetry install
+          poetry config --list
+
+      - name: Build wheels
+        run: poetry build
+      
+       - name: Build sdist
+        run: |
+          cd ./dist/
+          pip3 install dist/dataprep-*.whl
+        # pip3 uninstall dataprep --yes
+
+      - name: Parse version from pyproject.toml
+        run: echo "DATAPREP_VERSION=`toml get --toml-path pyproject.toml tool.poetry.version`" >> $GITHUB_ENV
+
+      - name: Create release note
+        run: poetry run python scripts/release-note.py $(git rev-parse --short HEAD) > RELEASE.md
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*.whl,dist/*.tar.gz"
+          bodyFile: "RELEASE.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
+          tag: v${{ env.DATAPREP_VERSION }}
+          commit: ${{ env.GITHUB_SHA }}
+
+      - name: Upload wheels
+        run: poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}
+
+  docs-deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ github.event.ref == 'refs/heads/release' }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download docs
+        uses: actions/download-artifact@v2
+        with:
+          name: docs
+          path: docs/build/html
+
+      - run: echo 'docs.dataprep.ai' > docs/build/html/CNAME
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: docs/build/html # The folder the action should deploy.
+          clean-exclude: dev

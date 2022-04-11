@@ -13,7 +13,6 @@ import os
 import warnings
 from .utils import find_module
 from ctypes import cdll
-
 pycrfsuite = find_module("_pycrfsuite.cpython", "./build")
 
 TAG_MAPPING = {
