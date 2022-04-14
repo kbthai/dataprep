@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - release
+      - compile_cmake
   pull_request:
     branches:
       - develop
