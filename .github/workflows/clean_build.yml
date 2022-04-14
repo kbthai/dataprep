@@ -41,8 +41,8 @@ jobs:
 
   build:
     runs-on: ${{ matrix.os }}
+    needs: docs-build
     strategy:
-#       needs: docs-build
       fail-fast: false
       matrix:
           os: [ubuntu-latest, macos-latest, windows-latest]
